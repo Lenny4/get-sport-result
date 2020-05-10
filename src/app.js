@@ -2,6 +2,8 @@ const options = require('./options');
 const sofascore = require('./supplier/sofascore');
 
 module.exports = {
+    options: options,
+
     async get(sport, name, date, option = null) {
         if (option === null) {
             option = {
