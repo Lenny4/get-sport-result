@@ -1,3 +1,5 @@
-module.exports = async function get(sport, name, date, option = null) {
-    return true;
+module.exports = {
+    async get(sport, name, date, option = null) {
+        return true;
+    },
 };
