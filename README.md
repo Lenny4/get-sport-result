@@ -3,7 +3,7 @@
 $ npm install get-sport-result
 ```
 
-#Usage
+# Usage
 - Soccer:
 ```
 const getResultSport = require('get-sport-result');

@@ -1,13 +1,7 @@
 const superagent = require('superagent');
 const options = require('../options');
+const Soccer = require('../model/soccer');
 const stringSimilarity = require('string-similarity');
-
-function convertDate(date) {
-    const year = date.getFullYear();
-    const month = ("0" + (date.getMonth() + 1)).slice(-2);
-    const day = ("0" + date.getDate()).slice(-2);
-    return year + '-' + month + '-' + day;
-}
 
 module.exports = {
     url: 'https://www.sofascore.com/%sport%//%date%/json',
@@ -23,9 +17,11 @@ module.exports = {
     },
 
     async getSoccer(name, date) {
-        const url = this.url.replace('%sport%', 'football').replace('%date%', convertDate(date));
+        const url = this.url.replace('%sport%', 'football').replace('%date%', this.convertDate(date));
         const response = await superagent.get(url);
-        return this.findEvent(JSON.parse(response.text), name);
+        const sofascoreResult = this.findEvent(JSON.parse(response.text), name);
+        const soccer = new Soccer();
+        return soccer.hydrateSofascore(sofascoreResult);
     },
 
     findEvent(response, name) {
@@ -43,5 +39,12 @@ module.exports = {
                 }
             }
         }
+    },
+
+    convertDate(date) {
+        const year = date.getFullYear();
+        const month = ("0" + (date.getMonth() + 1)).slice(-2);
+        const day = ("0" + date.getDate()).slice(-2);
+        return year + '-' + month + '-' + day;
     },
 };
