@@ -10,15 +10,21 @@ module.exports = class Soccer {
     }
 
     hydrateSofascore(sofascoreResult) {
+        // todo create an Utils for the status (known status: ['finished', 'postponed'])
+        // because each status has to be the same, no matter wich supplier is used
         this.status = sofascoreResult.status.type;
         this.homeTeam = sofascoreResult.homeTeam.name;
         this.awayTeam = sofascoreResult.awayTeam.name;
-        this.homeScore = sofascoreResult.homeScore.current;
-        this.awayScore = sofascoreResult.awayScore.current;
+        if (typeof sofascoreResult.homeScore.current !== 'undefined') {
+            this.homeScore = sofascoreResult.homeScore.current;
+        }
+        if (typeof sofascoreResult.awayScore.current !== 'undefined') {
+            this.awayScore = sofascoreResult.awayScore.current;
+        }
         this.startTimestamp = sofascoreResult.startTimestamp;
-        if (this.homeScore > this.awayScore) {
+        if (sofascoreResult.winnerCode === 1) {
             this.winner = 'homeTeam';
-        } else if (this.homeScore < this.awayScore) {
+        } else if (sofascoreResult.winnerCode === 2) {
             this.winner = 'awayTeam';
         }
         return this;
