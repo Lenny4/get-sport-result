@@ -1,7 +1,9 @@
 const superagent = require('superagent');
 const options = require('../options');
+const dateConverter = require('../date');
 const Soccer = require('../model/soccer');
 const stringSimilarity = require('string-similarity');
+const slugify = require('slugify');
 
 module.exports = {
     url: 'https://www.sofascore.com/%sport%//%date%/json',
@@ -17,10 +19,10 @@ module.exports = {
     },
 
     async getSoccer(name, date, option) {
-        const url = this.url.replace('%sport%', 'football').replace('%date%', this.convertDate(date));
+        const url = this.url.replace('%sport%', 'football').replace('%date%', dateConverter.convertDate(date));
         const response = await superagent.get(url);
         const sofascoreResult = this.findEvent(JSON.parse(response.text), name, option);
-        if (sofascoreResult !== null) {
+        if (sofascoreResult !== null && typeof sofascoreResult !== 'undefined') {
             const soccer = new Soccer();
             return soccer.hydrateSofascore(sofascoreResult);
         } else {
@@ -32,14 +34,14 @@ module.exports = {
         const allEventsName = [];
         for (const tournament of response.sportItem.tournaments) {
             for (const event of tournament.events) {
-                allEventsName.push(event.name);
+                allEventsName.push(slugify(event.name).toLowerCase());
             }
         }
-        const bestMatch = stringSimilarity.findBestMatch(name, allEventsName).bestMatch;
+        const bestMatch = stringSimilarity.findBestMatch(slugify(name).toLowerCase(), allEventsName).bestMatch;
         if (bestMatch.rating > option.minRating) {
             for (const tournament of response.sportItem.tournaments) {
                 for (const event of tournament.events) {
-                    if (event.name === bestMatch.target) {
+                    if (slugify(event.name).toLowerCase() === bestMatch.target) {
                         return event;
                     }
                 }
@@ -47,12 +49,5 @@ module.exports = {
         } else {
             return null;
         }
-    },
-
-    convertDate(date) {
-        const year = date.getFullYear();
-        const month = ("0" + (date.getMonth() + 1)).slice(-2);
-        const day = ("0" + date.getDate()).slice(-2);
-        return year + '-' + month + '-' + day;
     },
 };

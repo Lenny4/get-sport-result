@@ -1,6 +1,6 @@
 {
   "name": "get-sport-result",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Get sport result of different types of sports",
   "main": "index.js",
   "scripts": {
@@ -11,10 +11,12 @@
     "url": "git+https://github.com/Lenny4/get-sport-result.git"
   },
   "keywords": [
+    "sports",
     "sport",
     "result",
     "soccer",
-    "tennis"
+    "horse-racing",
+    "horse-racing-result"
   ],
   "author": "Alexandre Beaujour",
   "license": "MIT",
@@ -23,6 +25,8 @@
   },
   "homepage": "https://github.com/Lenny4/get-sport-result#readme",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "slugify": "^1.4.0",
     "string-similarity": "^4.0.1",
     "superagent": "^5.2.2"
   }

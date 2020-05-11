@@ -1,5 +1,6 @@
 const options = require('./options');
 const sofascore = require('./supplier/sofascore');
+const racingpost = require('./supplier/racingpost');
 
 function getDefaultOption(sport) {
     return {
@@ -42,6 +43,9 @@ module.exports = {
         switch (option.supplier) {
             case options.supplier.SOFASCORE:
                 result = await sofascore.get(sport, name, date, option);
+                break;
+            case options.supplier.RACING_POST:
+                result = await racingpost.getHorseRacing(name, date, option);
                 break;
         }
         return result;
