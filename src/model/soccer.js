@@ -7,26 +7,41 @@ module.exports = class Soccer {
         this.awayScore = null;
         this.winner = null;
         this.startTimestamp = null;
+        this.incidents = [];
     }
 
-    hydrateSofascore(sofascoreResult) {
-        // todo create an Utils for the status (known status: ['finished', 'postponed'])
-        // because each status has to be the same, no matter wich supplier is used
-        this.status = sofascoreResult.status.type;
-        this.homeTeam = sofascoreResult.homeTeam.name;
-        this.awayTeam = sofascoreResult.awayTeam.name;
-        if (typeof sofascoreResult.homeScore.current !== 'undefined') {
-            this.homeScore = sofascoreResult.homeScore.current;
+    hydrateSofascore(sofascoreResult, status) {
+        this.status = status;
+        this.homeTeam = sofascoreResult.event.homeTeam.name;
+        this.awayTeam = sofascoreResult.event.awayTeam.name;
+        if (typeof sofascoreResult.event.homeScore.current !== 'undefined') {
+            this.homeScore = sofascoreResult.event.homeScore.current;
         }
-        if (typeof sofascoreResult.awayScore.current !== 'undefined') {
-            this.awayScore = sofascoreResult.awayScore.current;
+        if (typeof sofascoreResult.event.awayScore.current !== 'undefined') {
+            this.awayScore = sofascoreResult.event.awayScore.current;
         }
-        this.startTimestamp = sofascoreResult.startTimestamp;
-        if (sofascoreResult.winnerCode === 1) {
+        this.startTimestamp = sofascoreResult.event.startTimestamp;
+        if (sofascoreResult.event.winnerCode === 1) {
             this.winner = 'homeTeam';
-        } else if (sofascoreResult.winnerCode === 2) {
+        } else if (sofascoreResult.event.winnerCode === 2) {
             this.winner = 'awayTeam';
         }
+        // incidents
+        sofascoreResult.incidents.forEach((incident) => {
+            let team = null;
+            if (incident.playerTeam === 1) {
+                team = 'homeTeam';
+            } else if (incident.playerTeam === 2) {
+                team = 'awayTeam';
+            }
+            let incidentObj = {
+                incidentType: incident.incidentType,
+                incidentClass: incident.incidentClass,
+                time: incident.time,
+                team: team,
+            };
+            this.incidents.push(incidentObj);
+        });
         return this;
     }
 };

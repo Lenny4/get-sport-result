@@ -35,6 +35,7 @@ getResultSport.get(getResultSport.options.sport.HORSE_RACING, 'newbury', new Dat
 Expected output:
 ```
 HorseRacing {
+  status: 'finished',
   runners: [
     { name: "Bond's Lover", position: 1, number: 6 },
     { name: 'Martha Brae', position: 2, number: 4 },
@@ -48,6 +49,7 @@ HorseRacing {
     { name: 'Scarlett Of Tara', position: null, number: 9 }
   ]
 }
+
 ```
 
 - Soccer:
@@ -67,7 +69,99 @@ Soccer {
   homeScore: 2,
   awayScore: 0,
   winner: 'homeTeam',
-  startTimestamp: 1578081300
+  startTimestamp: 1578081300,
+  incidents: [
+    {
+      incidentType: 'period',
+      incidentClass: 'period',
+      time: 90,
+      team: null
+    },
+    {
+      incidentType: 'goal',
+      incidentClass: 'regulargoal',
+      time: 90,
+      team: 'homeTeam'
+    },
+    {
+      incidentType: 'injuryTime',
+      incidentClass: 'injuryTime',
+      time: 90,
+      team: null
+    },
+    {
+      incidentType: 'substitution',
+      incidentClass: 'substitutionin',
+      time: 85,
+      team: 'homeTeam'
+    },
+    {
+      incidentType: 'substitution',
+      incidentClass: 'substitutionin',
+      time: 83,
+      team: 'awayTeam'
+    },
+    {
+      incidentType: 'substitution',
+      incidentClass: 'substitutionin',
+      time: 75,
+      team: 'homeTeam'
+    },
+    {
+      incidentType: 'substitution',
+      incidentClass: 'substitutionin',
+      time: 74,
+      team: 'awayTeam'
+    },
+    {
+      incidentType: 'substitution',
+      incidentClass: 'substitutionin',
+      time: 68,
+      team: 'awayTeam'
+    },
+    {
+      incidentType: 'substitution',
+      incidentClass: 'substitutionin',
+      time: 65,
+      team: 'homeTeam'
+    },
+    {
+      incidentType: 'card',
+      incidentClass: 'yellowcard',
+      time: 61,
+      team: 'homeTeam'
+    },
+    {
+      incidentType: 'goal',
+      incidentClass: 'penalty',
+      time: 53,
+      team: 'homeTeam'
+    },
+    {
+      incidentType: 'card',
+      incidentClass: 'yellowcard',
+      time: 52,
+      team: 'awayTeam'
+    },
+    {
+      incidentType: 'period',
+      incidentClass: 'period',
+      time: 45,
+      team: null
+    },
+    {
+      incidentType: 'card',
+      incidentClass: 'yellowcard',
+      time: 45,
+      team: 'awayTeam'
+    },
+    {
+      incidentType: 'injuryTime',
+      incidentClass: 'injuryTime',
+      time: 45,
+      team: null
+    }
+  ]
 }
 ```
 

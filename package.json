@@ -1,6 +1,6 @@
 {
   "name": "get-sport-result",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Get sport result of different types of sports",
   "main": "index.js",
   "scripts": {

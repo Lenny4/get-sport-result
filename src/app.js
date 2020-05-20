@@ -25,7 +25,7 @@ module.exports = {
      * @param sport
      * @param name
      * @param date
-     * @param option: {supplier, minRating}
+     * @param option: {supplier, minRating, runners}
      * @returns {Promise<null>}
      */
     async get(sport, name, date, option = null) {

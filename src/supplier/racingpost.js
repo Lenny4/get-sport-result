@@ -4,8 +4,8 @@ const cheerio = require('cheerio');
 const stringSimilarity = require('string-similarity');
 const slugify = require('slugify');
 const HorseRacing = require('../model/horse-racing');
-
 const appUrl = 'https://www.racingpost.com';
+const options = require('../options');
 
 module.exports = {
     urlSearchByDate: appUrl + '/results/%date%',
@@ -21,7 +21,7 @@ module.exports = {
             const eventUrl = this.getEventUrl($, raceNameEl, option);
             const runners = await this.getResults(eventUrl);
             const horseRacing = new HorseRacing();
-            horseRacing.hydrateRacingPost(runners);
+            horseRacing.hydrateRacingPost(runners, options.status.FINISHED);
             return horseRacing;
         }
         return null;
@@ -32,7 +32,10 @@ module.exports = {
         const response = await superagent.get(appUrl + eventUrl);
         const $ = cheerio.load(response.text);
         $('table.rp-horseTable__table tbody tr.rp-horseTable__mainRow').each((i, runnerEl) => {
-            let position = $(runnerEl).find('.rp-horseTable__pos__number').text().trim();
+            let position = $(runnerEl)
+                .find('.rp-horseTable__pos__number')
+                .text().trim()
+                .replace(/ *\([^)]*\) */g, '');
             if (!isNaN(position)) {
                 position = parseInt(position);
             } else {
@@ -115,5 +118,5 @@ module.exports = {
         option.runners.forEach((inputRunnerName, i) => {
             option.runners[i] = slugify(inputRunnerName).toLowerCase();
         });
-    }
+    },
 };

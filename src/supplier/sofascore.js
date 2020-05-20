@@ -4,9 +4,11 @@ const dateConverter = require('../date');
 const Soccer = require('../model/soccer');
 const stringSimilarity = require('string-similarity');
 const slugify = require('slugify');
+const baseUrl = 'https://www.sofascore.com';
 
 module.exports = {
-    url: 'https://www.sofascore.com/%sport%//%date%/json',
+    urlFind: baseUrl + '/%sport%//%date%/json',
+    urlFull: baseUrl + '/event/%id%/json',
 
     async get(sport, name, date, option) {
         let result = null;
@@ -19,12 +21,17 @@ module.exports = {
     },
 
     async getSoccer(name, date, option) {
-        const url = this.url.replace('%sport%', 'football').replace('%date%', dateConverter.convertDate(date));
-        const response = await superagent.get(url);
-        const sofascoreResult = this.findEvent(JSON.parse(response.text), name, option);
+        let url = this.urlFind.replace('%sport%', 'football').replace('%date%', dateConverter.convertDate(date));
+        let response = await superagent.get(url);
+        let sofascoreResult = this.findEvent(JSON.parse(response.text), name, option);
         if (sofascoreResult !== null && typeof sofascoreResult !== 'undefined') {
+            url = this.urlFull.replace('%id%', sofascoreResult.id);
+            response = await superagent.get(url);
+            sofascoreResult = JSON.parse(response.text);
+            console.log(url);
+
             const soccer = new Soccer();
-            return soccer.hydrateSofascore(sofascoreResult);
+            return soccer.hydrateSofascore(sofascoreResult, this.getStatus(sofascoreResult.event.status.type));
         } else {
             return null;
         }
@@ -48,6 +55,17 @@ module.exports = {
             }
         } else {
             return null;
+        }
+    },
+
+    getStatus(originalStatusName) {
+        switch (originalStatusName) {
+            case 'finished':
+                return options.status.FINISHED;
+            case 'postponed':
+                return options.status.POSTPONED;
+            default:
+                return options.status.UNKNOWN;
         }
     },
 };

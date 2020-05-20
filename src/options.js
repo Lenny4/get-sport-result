@@ -7,5 +7,10 @@ module.exports = {
         SOFASCORE: 'sofascore',
         RACING_POST: 'racing-post',
     },
+    status: {
+        FINISHED: 'finished',
+        POSTPONED: 'postponed',
+        UNKNOWN: 'unknown',
+    },
     defaultMinRating: 0.5,
 };
