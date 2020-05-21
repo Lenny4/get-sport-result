@@ -11,6 +11,8 @@ module.exports = {
         FINISHED: 'finished',
         POSTPONED: 'postponed',
         UNKNOWN: 'unknown',
+        NOT_STARTED: 'notstarted',
+        IN_PROGRESS: 'inprogress',
     },
     defaultMinRating: 0.5,
 };

@@ -64,7 +64,12 @@ module.exports = {
                 return options.status.FINISHED;
             case 'postponed':
                 return options.status.POSTPONED;
+            case 'notstarted':
+                return options.status.NOT_STARTED;
+            case 'inprogress':
+                return options.status.IN_PROGRESS;
             default:
+                console.log('status ' + originalStatusName + ' is unknow please open a merge request here: https://github.com/Lenny4/get-sport-result/issues');
                 return options.status.UNKNOWN;
         }
     },
