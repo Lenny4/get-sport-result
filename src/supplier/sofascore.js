@@ -37,7 +37,6 @@ module.exports = {
             url = this.urlFull.replace('%id%', sofascoreResult.id);
             response = await superagent.get(url);
             sofascoreResult = JSON.parse(response.text);
-            console.log(url);
 
             const soccer = new Soccer();
             return soccer.hydrateSofascore(sofascoreResult, this.getStatus(sofascoreResult.event.status.type));
