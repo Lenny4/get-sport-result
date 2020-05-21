@@ -13,6 +13,7 @@ module.exports = {
         UNKNOWN: 'unknown',
         NOT_STARTED: 'notstarted',
         IN_PROGRESS: 'inprogress',
+        CANCELED: 'canceled',
     },
     defaultMinRating: 0.5,
 };

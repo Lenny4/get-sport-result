@@ -7,7 +7,10 @@ const slugify = require('slugify');
 const baseUrl = 'https://www.sofascore.com';
 
 module.exports = {
-    urlFind: baseUrl + '/%sport%//%date%/json',
+    urlFinds: [
+        baseUrl + '/%sport%//%date%/json',
+        baseUrl + '/%sport%//%date%/inverse/json',
+    ],
     urlFull: baseUrl + '/event/%id%/json',
 
     async get(sport, name, date, option) {
@@ -21,9 +24,15 @@ module.exports = {
     },
 
     async getSoccer(name, date, option) {
-        let url = this.urlFind.replace('%sport%', 'football').replace('%date%', dateConverter.convertDate(date));
-        let response = await superagent.get(url);
-        let sofascoreResult = this.findEvent(JSON.parse(response.text), name, option);
+        let url, response, sofascoreResult;
+        for await (let urlFind of this.urlFinds) {
+            url = urlFind.replace('%sport%', 'football').replace('%date%', dateConverter.convertDate(date));
+            response = await superagent.get(url);
+            sofascoreResult = this.findEvent(JSON.parse(response.text), name, option);
+            if (sofascoreResult !== null) {
+                break;
+            }
+        }
         if (sofascoreResult !== null && typeof sofascoreResult !== 'undefined') {
             url = this.urlFull.replace('%id%', sofascoreResult.id);
             response = await superagent.get(url);
@@ -68,6 +77,8 @@ module.exports = {
                 return options.status.NOT_STARTED;
             case 'inprogress':
                 return options.status.IN_PROGRESS;
+            case 'canceled':
+                return options.status.CANCELED;
             default:
                 console.log('status ' + originalStatusName + ' is unknow please open a merge request here: https://github.com/Lenny4/get-sport-result/issues');
                 return options.status.UNKNOWN;
