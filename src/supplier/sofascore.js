@@ -1,4 +1,4 @@
-const superagent = require('superagent');
+const puppeteer = require('puppeteer');
 const options = require('../options');
 const dateConverter = require('../date');
 const Soccer = require('../model/soccer');
@@ -27,16 +27,15 @@ module.exports = {
         let url, response, sofascoreResult;
         for await (let urlFind of this.urlFinds) {
             url = urlFind.replace('%sport%', 'football').replace('%date%', dateConverter.convertDate(date));
-            response = await superagent.get(url);
-            sofascoreResult = this.findEvent(JSON.parse(response.text), name, option);
+            response = await this.getJsonPuppeteer(url);
+            sofascoreResult = this.findEvent(response, name, option);
             if (sofascoreResult !== null) {
                 break;
             }
         }
         if (sofascoreResult !== null && typeof sofascoreResult !== 'undefined') {
             url = this.urlFull.replace('%id%', sofascoreResult.id);
-            response = await superagent.get(url);
-            sofascoreResult = JSON.parse(response.text);
+            sofascoreResult = await this.getJsonPuppeteer(url);
 
             const soccer = new Soccer();
             return soccer.hydrateSofascore(sofascoreResult, this.getStatus(sofascoreResult.event.status.type));
@@ -83,4 +82,13 @@ module.exports = {
                 return options.status.UNKNOWN;
         }
     },
+
+    async getJsonPuppeteer(url) {
+        const browser = await puppeteer.launch({headless: true});
+        const page = await browser.newPage();
+        await page.goto(url);
+        const result = await page.evaluate(() => JSON.parse(document.querySelector("body").innerText));
+        await browser.close();
+        return result;
+    }
 };

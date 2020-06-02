@@ -1,11 +1,15 @@
 # get-sport-result
-get-sport-result is an npm package to get result of differents types of sports such as soccer or horse-racing.
-We get the results on differents platform like https://www.sofascore.com/ or https://www.racingpost.com/
+get-sport-result is an npm package for obtaining the results of different types of sports such as football or horse racing.
+We get the results on different platforms like https://www.sofascore.com/ or https://www.racingpost.com/
 
 ## Installation
 ```
 $ npm install get-sport-result
 ```
+
+## Warning
+The sofascore supplier is protected, so we use puppeteer to get the result from their (private) API.
+This means that it might take some time and use a lot of resources on your machine to get multiple results.
 
 ## Usage
 - Horse Racing:
@@ -75,91 +79,106 @@ Soccer {
       incidentType: 'period',
       incidentClass: 'period',
       time: 90,
-      team: null
+      team: null,
+      player: null
     },
     {
       incidentType: 'goal',
       incidentClass: 'regulargoal',
       time: 90,
-      team: 'homeTeam'
+      team: 'homeTeam',
+      player: 'Toma Bašić'
     },
     {
       incidentType: 'injuryTime',
       incidentClass: 'injuryTime',
       time: 90,
-      team: null
+      team: null,
+      player: null
     },
     {
       incidentType: 'substitution',
       incidentClass: 'substitutionin',
       time: 85,
-      team: 'homeTeam'
+      team: 'homeTeam',
+      player: null
     },
     {
       incidentType: 'substitution',
       incidentClass: 'substitutionin',
       time: 83,
-      team: 'awayTeam'
+      team: 'awayTeam',
+      player: null
     },
     {
       incidentType: 'substitution',
       incidentClass: 'substitutionin',
       time: 75,
-      team: 'homeTeam'
+      team: 'homeTeam',
+      player: null
     },
     {
       incidentType: 'substitution',
       incidentClass: 'substitutionin',
       time: 74,
-      team: 'awayTeam'
+      team: 'awayTeam',
+      player: null
     },
     {
       incidentType: 'substitution',
       incidentClass: 'substitutionin',
       time: 68,
-      team: 'awayTeam'
+      team: 'awayTeam',
+      player: null
     },
     {
       incidentType: 'substitution',
       incidentClass: 'substitutionin',
       time: 65,
-      team: 'homeTeam'
+      team: 'homeTeam',
+      player: null
     },
     {
       incidentType: 'card',
       incidentClass: 'yellowcard',
       time: 61,
-      team: 'homeTeam'
+      team: 'homeTeam',
+      player: 'Youssouf Sabaly'
     },
     {
       incidentType: 'goal',
       incidentClass: 'penalty',
       time: 53,
-      team: 'homeTeam'
+      team: 'homeTeam',
+      player: 'Jimmy Briand'
     },
     {
       incidentType: 'card',
       incidentClass: 'yellowcard',
       time: 52,
-      team: 'awayTeam'
+      team: 'awayTeam',
+      player: 'Alois Confais'
     },
     {
       incidentType: 'period',
       incidentClass: 'period',
       time: 45,
-      team: null
+      team: null,
+      player: null
     },
     {
       incidentType: 'card',
       incidentClass: 'yellowcard',
       time: 45,
-      team: 'awayTeam'
+      team: 'awayTeam',
+      player: 'Bevic Selad Moussiti Oko'
     },
     {
       incidentType: 'injuryTime',
       incidentClass: 'injuryTime',
       time: 45,
-      team: null
+      team: null,
+      player: null
     }
   ]
 }

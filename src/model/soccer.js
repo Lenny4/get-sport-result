@@ -29,16 +29,21 @@ module.exports = class Soccer {
         // incidents
         sofascoreResult.incidents.forEach((incident) => {
             let team = null;
+            let player = null;
             if (incident.playerTeam === 1) {
                 team = 'homeTeam';
             } else if (incident.playerTeam === 2) {
                 team = 'awayTeam';
+            }
+            if (typeof incident.player === 'object') {
+                player = incident.player.name;
             }
             let incidentObj = {
                 incidentType: incident.incidentType,
                 incidentClass: incident.incidentClass,
                 time: incident.time,
                 team: team,
+                player: player,
             };
             this.incidents.push(incidentObj);
         });
