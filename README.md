@@ -11,6 +11,8 @@ $ npm install get-sport-result
 The sofascore supplier is protected, so we use puppeteer to get the result from their (private) API.
 This means that it might take some time and use a lot of resources on your machine to get multiple results.
 
+Sofascore ban ip wich does too much requests.
+
 ## Usage
 - Horse Racing:
 ```javascript
