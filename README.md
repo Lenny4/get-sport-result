@@ -185,6 +185,10 @@ Soccer {
   ]
 }
 ```
+## Test
+```bash
+$ npm test
+```
 
 ## Contributing
 Pull requests are welcome.
