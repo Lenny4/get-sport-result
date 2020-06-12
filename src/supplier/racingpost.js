@@ -21,7 +21,13 @@ module.exports = {
             const eventUrl = this.getEventUrl($, raceNameEl, option);
             const runners = await this.getResults(eventUrl);
             const horseRacing = new HorseRacing();
-            horseRacing.hydrateRacingPost(runners, options.status.FINISHED);
+            let status = options.status.IN_PROGRESS;
+            runners.forEach((runner) => {
+                if (!isNaN(runner.position)) {
+                    status = options.status.FINISHED
+                }
+            });
+            horseRacing.hydrateRacingPost(runners, status);
             return horseRacing;
         }
         return null;
