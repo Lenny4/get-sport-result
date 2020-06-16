@@ -194,8 +194,14 @@ $ npm test
 Pull requests are welcome.
 
 ## TODO
-- Implement the other sports available on sofascore like tennis, basketball ...
-- Write tests
+##### implement new way to get soccer results:
+- https://www.api-football.com/documentation#teams-data
+- https://www.api-football.com/documentation#fixtures-h2h-requests
+- https://www.jokecamp.com/blog/guide-to-football-and-soccer-data-and-apis/#footballdata
+
+##### implement other sports (tennis, basket ...)
+
+##### write more tests
 
 ## License
 MIT
