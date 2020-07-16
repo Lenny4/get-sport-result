@@ -47,6 +47,9 @@ module.exports = {
             } else {
                 position = null;
             }
+            if (position === 0) {
+                position = null;
+            }
             const name = $(runnerEl).find('.rp-horseTable__horse__name').text().trim();
             const number = parseInt($(runnerEl).find('.rp-horseTable__saddleClothNo').text().trim());
             runners.push({
