@@ -26,13 +26,13 @@
   },
   "homepage": "https://github.com/Lenny4/get-sport-result#readme",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.3",
-    "puppeteer": "^3.3.0",
-    "slugify": "^1.4.0",
-    "string-similarity": "^4.0.1",
-    "superagent": "^5.2.2"
+    "cheerio": "^1.0.0-rc.10",
+    "puppeteer": "^13.0.0",
+    "slugify": "^1.6.4",
+    "string-similarity": "^4.0.4",
+    "superagent": "^6.1.0"
   },
   "devDependencies": {
-    "mocha": "^8.0.1"
+    "mocha": "^9.1.3"
   }
 }
