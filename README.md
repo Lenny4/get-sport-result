@@ -1,4 +1,7 @@
 # get-sport-result
+
+## This package is no longer maintained
+
 get-sport-result is an npm package for obtaining the results of different types of sports such as football or horse racing.
 We get the results on different platforms like https://www.sofascore.com/ or https://www.racingpost.com/
 
